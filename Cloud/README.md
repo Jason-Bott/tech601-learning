@@ -1,4 +1,81 @@
-# Cloud Notes
+# Cloud & Virtual Machines
+
+## Cloud
+ 
+### What is cloud computing?
+
+Cloud computing is the delivery of computing services over the internet instead of running them on your own computers/servers.
+
+Services:
+- Storage
+- Servers
+- Databases
+- Networking
+- Software
+- Analytics
+- Artificial Intelligence
+ 
+### How do we know if something is in the cloud?
+ 
+A service is usually cloud based if you need the **internet** to access it, if the data is stored on **remote servers**, if you **don't manage hardware** yourself, or if you can access it from **multiple devices anywhere**.
+
+### Differences between on-prem and the cloud?
+
+| Feature           | On-Prem          | Cloud            |
+| ----------------- | ---------------- | ---------------- |
+| Hardware location | Company building | Data centres     |
+| Setup cost        | High upfront     | Low upfront      |
+| Maintenance       | Company managed  | Provider managed |
+| Scalability       | Slow to expand   | Quick to scale   |
+| Access            | Internal network | Internet access  |
+
+###  4 deployment models of cloud: private vs public vs hybrid vs multi-cloud
+
+#### Private (Single-tenant)
+
+Cloud infrastructure is used by one organization only allowing for more control and security, however this comes with a high cost and management needs.
+
+#### Public (Multi-tenant)
+
+Infrastructure owned by a cloud provider and shared between customers, like AWS and Google. These are cheaper and more scalable but allow less control.
+
+#### Hybrid
+
+A mix of private and public allowing sensitive data to be kept private and websites hosted publicly. This allows for more flexibility and a better security balance.
+
+#### Multi
+
+Using multiple cloud providers at the same time like using AWS for applications and Google for storage. This avoids dependency on one provider increasing reliability.
+
+### Types of cloud services: IaaS, PaaS, SaaS
+
+#### IaaS (Infrastructure as a Service)
+
+The servers, storage, and networking are rented. The operating systems and applications are self managed.
+
+#### PaaS (Platform as a Service)
+
+The provider manages infrastructure and runtime environment, you just deploy applications.
+
+#### SaaS (Software as a Service)
+
+Ready to use software delivered over the internet, like Microsoft 365. You only use the software, everything else is managed.
+
+![Resposibility Diagram](images/shared-responsibility.svg)
+
+### What are the advantages/disadvantages of the cloud? (Particularly for a business)
+ 
+* Difference between OpEx vs CapEx and how it relates the cloud
+ 
+* Is migrating to the cloud always cheaper?
+* Guaranteed levels of service
+ 
+### Marketshare - Who are the biggest cloud providers?
+ 
+### Which cloud provider do you think might be the best?
+ 
+### What sorts of things do you usually need to pay for when using the cloud?
+
 
 ## Pros and Cons of Cloud
 
