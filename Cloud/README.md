@@ -1,4 +1,38 @@
-# Cloud & Virtual Machines
+# Cloud, AWS & Virtual Machines
+
+- [Cloud, AWS \& Virtual Machines](#cloud-aws--virtual-machines)
+  - [Cloud](#cloud)
+    - [What is cloud computing?](#what-is-cloud-computing)
+    - [How do we know if something is in the cloud?](#how-do-we-know-if-something-is-in-the-cloud)
+    - [Differences between on-prem and the cloud?](#differences-between-on-prem-and-the-cloud)
+    - [4 deployment models of cloud: private vs public vs hybrid vs multi-cloud](#4-deployment-models-of-cloud-private-vs-public-vs-hybrid-vs-multi-cloud)
+      - [Private (Single-tenant)](#private-single-tenant)
+      - [Public (Multi-tenant)](#public-multi-tenant)
+      - [Hybrid](#hybrid)
+      - [Multi](#multi)
+    - [Types of cloud services: IaaS, PaaS, SaaS](#types-of-cloud-services-iaas-paas-saas)
+      - [IaaS (Infrastructure as a Service)](#iaas-infrastructure-as-a-service)
+      - [PaaS (Platform as a Service)](#paas-platform-as-a-service)
+      - [SaaS (Software as a Service)](#saas-software-as-a-service)
+      - [Difference between OpEx vs CapEx and how it relates the cloud](#difference-between-opex-vs-capex-and-how-it-relates-the-cloud)
+      - [Is migrating to the cloud always cheaper?](#is-migrating-to-the-cloud-always-cheaper)
+      - [Guaranteed levels of service](#guaranteed-levels-of-service)
+    - [Marketshare - Who are the biggest cloud providers?](#marketshare---who-are-the-biggest-cloud-providers)
+    - [Which cloud provider do you think might be the best?](#which-cloud-provider-do-you-think-might-be-the-best)
+    - [What sorts of things do you usually need to pay for when using the cloud?](#what-sorts-of-things-do-you-usually-need-to-pay-for-when-using-the-cloud)
+    - [Note about virtual netowrks on AWS](#note-about-virtual-netowrks-on-aws)
+  - [Pros and Cons of Cloud](#pros-and-cons-of-cloud)
+    - [Advantages](#advantages)
+    - [Disadvantages](#disadvantages)
+  - [Virtual Machine Documentation](#virtual-machine-documentation)
+    - [Creating an instance](#creating-an-instance)
+    - [Creating a key pair](#creating-a-key-pair)
+    - [Creating a security group](#creating-a-security-group)
+    - [Using the virtual machine](#using-the-virtual-machine)
+      - [Connecting](#connecting)
+      - [Exiting](#exiting)
+
+---
 
 ## Cloud
  
@@ -62,20 +96,47 @@ The provider manages infrastructure and runtime environment, you just deploy app
 Ready to use software delivered over the internet, like Microsoft 365. You only use the software, everything else is managed.
 
 ![Resposibility Diagram](images/shared-responsibility.svg)
+ 
+#### Difference between OpEx vs CapEx and how it relates the cloud
+- Operating Expenditure
+  - On-going expenses
+  - Usually monthly bills when using coud
+- Capital Expenditure
+  - Upfront costs
+  - On-prem usually involves more upfront costs
+  
+#### Is migrating to the cloud always cheaper?
 
-### What are the advantages/disadvantages of the cloud? (Particularly for a business)
- 
-* Difference between OpEx vs CapEx and how it relates the cloud
- 
-* Is migrating to the cloud always cheaper?
-* Guaranteed levels of service
+- 2 types of calculators to help:
+  - Pricing calculators
+  - Total cost of ownership (TCO) calculator
+- Depends on the organisation - deep analysis is usually required
+
+#### Guaranteed levels of service
+
+- Service Level Agreements - typical of most cloud services - guarantees around the level of service they will give
+- SLO often relate to how available the service (uptime)
  
 ### Marketshare - Who are the biggest cloud providers?
- 
+
+- Amazon (AWS)
+- Microsoft (Azure)
+- Google (GCP)
+
+![Market Share](images/marketshare.png)
+
 ### Which cloud provider do you think might be the best?
  
 ### What sorts of things do you usually need to pay for when using the cloud?
 
+- VM running - amount of CPU, memory
+- VM stopped - storage
+- Network traffic - may need to pay for **outgoing** traffic (egress), especially when data needs to cross different networks in different geographical regions
+- Anything in limited supply e.g. public IP addresses
+
+### Note about virtual netowrks on AWS
+
+- AWS has a default VPC (Virtual Private Cloud, similar to Azure Virtual Networks)
 
 ## Pros and Cons of Cloud
 
