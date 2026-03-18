@@ -4,7 +4,28 @@
   - [Why learn Linux?](#why-learn-linux)
   - [What is Linux?](#what-is-linux)
   - [What is Bash?](#what-is-bash)
+  - [What is process?](#what-is-process)
+    - [Two types of processes](#two-types-of-processes)
+- [Commands](#commands)
+  - [Getting Help](#getting-help)
+  - [Navigation (Directories)](#navigation-directories)
+  - [Listing Files \& Directories](#listing-files--directories)
+  - [File Viewing \& Searching](#file-viewing--searching)
+  - [File \& Directory Management](#file--directory-management)
   - [File Permissions](#file-permissions)
+  - [Text Editing](#text-editing)
+  - [System Information](#system-information)
+  - [Process Management](#process-management)
+  - [Environment Variables](#environment-variables)
+  - [Command History](#command-history)
+  - [Networking \& Downloads](#networking--downloads)
+  - [User \& Session Management](#user--session-management)
+  - [Package Management (APT)](#package-management-apt)
+  - [Services (systemctl)](#services-systemctl)
+  - [Running Scripts](#running-scripts)
+  - [Terminal Shortcuts](#terminal-shortcuts)
+- [File Management](#file-management)
+  - [File Permissions](#file-permissions-1)
     - [Does being the owner of a file mean you have full permissions on that file?](#does-being-the-owner-of-a-file-mean-you-have-full-permissions-on-that-file)
     - [If you give permissions to the User entity, what does this mean?](#if-you-give-permissions-to-the-user-entity-what-does-this-mean)
     - [If you give permissions to the Group entity, what does this mean?](#if-you-give-permissions-to-the-group-entity-what-does-this-mean)
@@ -28,21 +49,6 @@
     - [What permissions are set when a user creates a file or directory? Who does file or directory belong to?](#what-permissions-are-set-when-a-user-creates-a-file-or-directory-who-does-file-or-directory-belong-to)
     - [Why does the owner, by default, not receive X permissions when they create a file?](#why-does-the-owner-by-default-not-receive-x-permissions-when-they-create-a-file)
     - [What command is used to change the owner of a file or directory?](#what-command-is-used-to-change-the-owner-of-a-file-or-directory)
-- [Commands](#commands)
-  - [Getting Help](#getting-help)
-  - [Navigation (Directories)](#navigation-directories)
-  - [Listing Files \& Directories](#listing-files--directories)
-  - [File Viewing \& Searching](#file-viewing--searching)
-  - [File \& Directory Management](#file--directory-management)
-  - [File Permissions](#file-permissions-1)
-  - [Text Editing](#text-editing)
-  - [System Information](#system-information)
-  - [Command History](#command-history)
-  - [Networking \& Downloads](#networking--downloads)
-  - [User \& Session Management](#user--session-management)
-  - [Package Management (APT)](#package-management-apt)
-  - [Services (systemctl)](#services-systemctl)
-  - [Running Scripts](#running-scripts)
 - [Streams, Redirection and Appending, Piping](#streams-redirection-and-appending-piping)
   - [Streams](#streams)
     - [What is a stream in Linux?](#what-is-a-stream-in-linux)
@@ -92,6 +98,378 @@
 - To understand how to use Linux, you must know the basics of command-line tools 
 - Shells is like software/interface that runs the commands (aka command-line interpreter just like in older versions of Windows you had MS-DOS) 
 - There are a range of shells, but the most common default shell is bash
+
+## What is process?
+
+- A program that is been loaded into RAM and currently being processed by the CPU
+- Although it looks like many processes are running concurrently (at the same time), a single-core CPU can only run one process at a time
+- Because Linux quickly switches between the running processes, it appears like they many processes are being run concurrently
+- multi-core CPUs can run/execute more than one process concurrently
+
+### Two types of processes
+
+- User processes
+  - Usually run by a user and linked to the shell session in which they were run
+- System processes
+  - most processes running are system processes
+  - they usually don't provide an application or interface for the end user to use
+  - they provide services like:
+    - a web server
+    - FTP server
+    - a file service
+    - a print service
+    - a logging service
+
+# Commands
+
+## Getting Help
+
+Help for a command:
+
+> [command] --help
+
+---
+
+## Navigation (Directories)
+
+Change directory:
+
+> cd  
+> cd .ssh  
+> cd ..  
+> cd ~
+
+Show current directory:
+
+> pwd
+
+---
+
+## Listing Files & Directories
+
+List files:
+
+> ls  
+> ls -a  
+> ls -l  
+> ls -la
+
+Visualize directory structure:
+
+> tree
+
+---
+
+## File Viewing & Searching
+
+Print file contents to screen:
+
+> cat
+
+Show top lines of a file:
+
+> head
+
+Show bottom lines of a file:
+
+> tail
+
+Number lines in a file:
+
+> nl
+
+Search for keywords in files:
+
+> grep
+
+Identify file type:
+
+> file
+
+---
+
+## File & Directory Management
+
+Move or rename files:
+
+> mv
+
+Copy files:
+
+> cp
+
+Remove files:
+
+> rm
+
+Make directories:
+
+> mkdir
+
+Remove directories recursively:
+
+> rm -r
+
+Remove directories recursively with force:
+
+> rm -rf
+
+Remove empty directories:
+
+> rm -d
+
+Create empty file:
+
+> touch
+
+---
+
+## File Permissions
+
+Change file permissions:
+
+> chmod 400 [filename]
+
+Make a script executable:
+
+> chmod +x install_nginx.sh
+
+---
+
+## Text Editing
+
+Edit files in text editor:
+
+> nano
+
+Edit bash configuration:
+
+> nano .bashrc
+
+---
+
+## System Information
+
+Show OS name:
+
+> uname
+
+Show detailed OS information:
+
+> uname -a
+
+Show current user:
+
+> whoami
+
+Show running processes:
+
+> ps
+
+---
+
+## Process Management
+
+Show processes (different formats):
+
+> ps  
+> ps -A  
+> ps -e  
+> ps aux
+
+Interactive process viewer:
+
+> top
+
+Sort inside `top`:
+
+> Shift + M (sort by memory)  
+> Shift + P (sort by CPU)  
+> Shift + N (sort by newest)
+
+Enhanced process viewer:
+
+> htop
+
+Kill processes:
+
+> kill  
+> kill -1  
+> kill -15  
+> kill -9
+
+Pause execution:
+
+> sleep 3  
+> sleep 30  
+> sleep 5000
+
+Manage background jobs:
+
+> jobs  
+> jobs -l
+
+---
+
+## Environment Variables
+
+Show all environment variables:
+
+> printenv
+
+Print a variable:
+
+> echo $MYNAME
+
+Set environment variable:
+
+> export MYNAME=ramon
+
+Make variable persistent (put in .bashrc):
+
+> export MYNAME="Ramon is persistent"
+
+Remove environment variable:
+
+> unset MYNAME
+
+Reload bash configuration:
+
+> source .bashrc
+
+---
+
+## Command History
+
+Show command history:
+
+> history
+
+Clear command history:
+
+> history -c
+
+---
+
+## Networking & Downloads
+
+Download with curl:
+
+> curl [URL] --output [filename]
+
+Download with wget:
+
+> wget [URL] --output [filename]
+
+Copy file into VM:
+
+>  scp -i ~/.ssh/key-pair app.zip username@public-ip:/home/username
+
+---
+
+## User & Session Management
+
+Switch user:
+
+> su
+
+Run command as superuser:
+
+> sudo
+
+Exit SSH session:
+
+> exit
+
+---
+
+## Package Management (APT)
+
+Update package sources:
+
+> sudo apt update
+
+Upgrade packages:
+
+> sudo apt upgrade
+
+Upgrade packages automatically confirming prompts:
+
+> sudo apt upgrade -y
+
+Install a package:
+
+> apt install [package]
+
+Example install:
+
+> sudo apt install nginx -y
+
+---
+
+## Services (systemctl)
+
+Check service status:
+
+> systemctl status nginx
+
+Check if service is enabled at startup:
+
+> systemctl is-enabled nginx
+
+Enable service at startup:
+
+> sudo systemctl enable nginx
+
+Disable service:
+
+> systemctl disable nginx
+
+Restart a service:
+
+> sudo systemctl restart nginx
+
+Stop a service:
+
+> systemctl stop nginx
+
+Start a service:
+
+> systemctl start nginx
+
+---
+
+## Running Scripts
+
+List files with permissions:
+
+> ls -l
+
+Run executable script:
+
+> ./install_nginx.sh
+
+View script contents:
+
+> cat install_nginx.sh
+
+---
+
+## Terminal Shortcuts
+
+Stop a running command:
+
+> Ctrl + C
+
+Suspend a process:
+
+> Ctrl + Z
+
+Quit interactive programs:
+
+> q
+
+# File Management
 
 ## File Permissions
 
@@ -323,260 +701,6 @@ Change ownership of a directory and its contents:
 ``` Bash
 sudo chown -R amy projectfolder
 ```
-
-# Commands
-
-## Getting Help
-
-Help for a command:
-
-> [command] --help
-
----
-
-## Navigation (Directories)
-
-Change directory:
-
-> cd  
-> cd .ssh  
-> cd ..  
-> cd ~
-
-Show current directory:
-
-> pwd
-
----
-
-## Listing Files & Directories
-
-List files:
-
-> ls  
-> ls -a  
-> ls -l  
-> ls -la
-
-Visualize directory structure:
-
-> tree
-
----
-
-## File Viewing & Searching
-
-Print file contents to screen:
-
-> cat
-
-Show top lines of a file:
-
-> head -[number]
-
-Show bottom lines of a file:
-
-> tail -[number]
-
-Number lines in a file:
-
-> nl
-
-Search for keywords in files:
-
-> grep
-
-Identify file type:
-
-> file
-
----
-
-## File & Directory Management
-
-Move or rename files:
-
-> mv
-
-Copy files:
-
-> cp
-
-Remove files:
-
-> rm
-
-Make directories:
-
-> mkdir
-
-Remove directories recursively:
-
-> rm -r
-
-Remove directories recursively with force:
-
-> rm -rf
-
-Remove empty directories:
-
-> rm -d
-
-Create empty file:
-
-> touch
-
----
-
-## File Permissions
-
-Change file permissions:
-
-> chmod 400 [filename]
-
-Make a script executable:
-
-> chmod +x install_nginx.sh
-
----
-
-## Text Editing
-
-Edit files in text editor:
-
-> nano
-
-Example:
-
-> nano install_nginx.sh
-
----
-
-## System Information
-
-Show OS name:
-
-> uname
-
-Show detailed OS information:
-
-> uname -a
-
-Show current user:
-
-> whoami
-
-Show running processes:
-
-> ps
-
----
-
-## Command History
-
-Show command history:
-
-> history
-
-Clear command history:
-
-> history -c
-
----
-
-## Networking & Downloads
-
-Download with curl:
-
-> curl [URL] --output [filename]
-
-Download with wget:
-
-> wget [URL] --output [filename]
-
----
-
-## User & Session Management
-
-Switch user:
-
-> su
-
-Run command as superuser:
-
-> sudo
-
-Exit SSH session:
-
-> exit
-
----
-
-## Package Management (APT)
-
-Update package sources:
-
-> sudo apt update
-
-Upgrade packages:
-
-> sudo apt upgrade
-
-Upgrade packages automatically confirming prompts:
-
-> sudo apt upgrade -y
-
-Install a package:
-
-> apt install [package]
-
-Example install:
-
-> sudo apt install nginx -y
-
----
-
-## Services (systemctl)
-
-Check service status:
-
-> systemctl status nginx
-
-Check if service is enabled at startup:
-
-> systemctl is-enabled nginx
-
-Enable service at startup:
-
-> sudo systemctl enable nginx
-
-Restart a service:
-
-> sudo systemctl restart nginx
-
-Stop a service:
-
-> systemctl stop nginx
-
-Start a service:
-
-> systemctl start nginx
-
----
-
-## Running Scripts
-
-List files with permissions:
-
-> ls -l
-
-Run executable script:
-
-> ./install_nginx.sh
-
-View script contents:
-
-> cat install_nginx.sh
 
 # Streams, Redirection and Appending, Piping
 
