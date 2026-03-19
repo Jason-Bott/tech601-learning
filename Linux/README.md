@@ -6,6 +6,9 @@
   - [What is Bash?](#what-is-bash)
   - [What is process?](#what-is-process)
     - [Two types of processes](#two-types-of-processes)
+  - [What is a reverse proxy?](#what-is-a-reverse-proxy)
+  - [What is user data (VM)?](#what-is-user-data-vm)
+- [Mistakes Made](#mistakes-made)
 - [Commands](#commands)
   - [Getting Help](#getting-help)
   - [Navigation (Directories)](#navigation-directories)
@@ -24,6 +27,8 @@
   - [Services (systemctl)](#services-systemctl)
   - [Running Scripts](#running-scripts)
   - [Terminal Shortcuts](#terminal-shortcuts)
+  - [PM2](#pm2)
+- [Bash Script](#bash-script)
 - [File Management](#file-management)
   - [File Permissions](#file-permissions-1)
     - [Does being the owner of a file mean you have full permissions on that file?](#does-being-the-owner-of-a-file-mean-you-have-full-permissions-on-that-file)
@@ -119,6 +124,25 @@
     - a file service
     - a print service
     - a logging service
+
+## What is a reverse proxy?
+
+- A reverse proxy allows a user to be directed to a specfic port without needing to specify this in the url
+  - E.g. 123.12.12.123:3000 can now be accessed from just 123.12.12.123
+
+## What is user data (VM)?
+
+- User data allows a Bash script to be run once immediately after virtual machine creation.
+- It runs as root user and takes the same duration as the Bash script would normally
+- When making a new VM:
+  - Expand Advanced
+  - Under "user data" paste the Bash script
+  - It will be run on creation
+
+# Mistakes Made
+
+- using ./file.sh instead of source file.sh or . file.sh
+  - using ./file.sh runs the script in a subshell so any jobs won't be shown, like npm start &
 
 # Commands
 
@@ -447,11 +471,31 @@ List files with permissions:
 
 Run executable script:
 
-> ./install_nginx.sh
+> source install_nginx.sh
+
+or:
+
+> . install_nginx.sh
 
 View script contents:
 
 > cat install_nginx.sh
+
+Run in background using &:
+
+> npm start &
+
+Access job while running and stop it:
+
+> fg %1
+
+1 represents first job in jobs list, then you can stop normally:
+
+> Ctrl + C
+
+To disable interactable user input for commands like apt upgrade:
+
+> export DEBIAN_FRONTEND=noninteractive
 
 ---
 
@@ -468,6 +512,107 @@ Suspend a process:
 Quit interactive programs:
 
 > q
+
+## PM2
+
+Install (use -g to make it global):
+
+> sudo npm install -g pm2
+
+Stop app:
+
+> pm2 delete sparta-app || true
+
+Start app:
+
+> pm2 start app.js --name sparta-app
+
+# Bash Script
+
+``` Bash
+#!/bin/bash 
+
+echo update...
+sudo apt update -y 
+echo done
+echo
+
+echo upgrade... 
+# NO LONGER NEEDS FIXING! Asks for user input. Search for noninteractive
+sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y
+echo done
+echo
+
+echo install nginx...
+# not needed to run app, but will need it later for reverse proxy
+# NO LONGER NEEDS FIXING! Asks for user input. Search for noninteractive
+sudo DEBIAN_FRONTEND=noninteractive apt install nginx -y
+echo done
+echo
+
+echo download installation script for nodejs 20.x...
+curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
+echo done
+echo
+
+echo run installation script for nodejs 20.x...
+# NO LONGER NEEDS FIXING! Asks for user input. Search for noninteractive
+sudo DEBIAN_FRONTEND=noninteractive bash nodesource_setup.sh
+echo done
+echo
+
+echo install nodejs 20.x...
+# NO LONGER NEEDS FIXING! Asks for user input. Search for noninteractive
+sudo DEBIAN_FRONTEND=noninteractive apt install nodejs -y
+echo done
+echo
+
+echo install pm2...
+sudo npm install -g pm2
+echo done
+echo
+
+echo git clone app code...
+if [ ! -d "tech601-sparta-app" ]; then
+    git clone --recursive https://github.com/Jason-Bott/tech601-sparta-app.git
+else
+    echo repo already exists
+fi
+echo done
+echo
+
+echo cd into app directory...
+cd tech601-sparta-app
+cd app
+echo done
+echo
+
+echo npm install...
+npm install
+echo done
+echo
+
+# echo run app using either npm start or node app.js in the background using "&"...
+# npm start &
+# echo done
+# echo
+
+echo pm2 to stop the app...
+# for idempotency - we can run our script multiple times without errors
+pm2 delete sparta-app || true
+echo done
+echo
+
+echo pm2 to start the app...
+pm2 start app.js --name sparta-app
+echo done
+echo
+
+echo cd to home...
+cd ~
+echo done
+echo
+```
 
 # File Management
 
