@@ -81,7 +81,7 @@ echo set environment variable for DB connection string...
 # MUST SET IF YOU WANT TO CONNECT APP TO DB
 # COMMENT OUT IF YOU DON'T WANT TO CONNECT TO DB
 # export DB_HOST=mongodb://<IP-ADDRESS>:27017/posts
-export DB_HOST=mongodb://172.31.19.162:27017/posts
+export DB_HOST=mongodb://172.31.52.75:27017/posts
 echo done
 echo
 
