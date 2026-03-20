@@ -28,6 +28,7 @@
   - [Running Scripts](#running-scripts)
   - [Terminal Shortcuts](#terminal-shortcuts)
   - [PM2](#pm2)
+  - [Checking Ports](#checking-ports)
 - [Bash Script](#bash-script)
 - [File Management](#file-management)
   - [File Permissions](#file-permissions-1)
@@ -139,10 +140,19 @@
   - Under "user data" paste the Bash script
   - It will be run on creation
 
+While user data is running, what is to be expected in your web browser at the public IP (assuming app deployment script):
+1. Error
+2. Welcome to Nginx homepage
+3. 502 error: Bad gateway
+4. App displays
+
 # Mistakes Made
 
 - using ./file.sh instead of source file.sh or . file.sh
   - using ./file.sh runs the script in a subshell so any jobs won't be shown, like npm start &
+- REMEMBER TO CHANGE PRIVATE IP
+  - `export DB_HOST=mongodb://172.31.19.162:27017/posts`
+  - Remember this line in `prov-app.sh` will need the ip changing if the database has switched to a new VM
 
 # Commands
 
@@ -526,6 +536,16 @@ Stop app:
 Start app:
 
 > pm2 start app.js --name sparta-app
+
+## Checking Ports
+
+Check process on port 3000:
+
+> lsof 3000
+
+or:
+
+> curl 127.0.0.1:3000
 
 # Bash Script
 
@@ -970,7 +990,7 @@ Here `ls` lists files then `wc -l` counts the lines.
 ls | sort | wc -l
 ```
 
-Here `ls` lists files then `sort` sorts the list then `wc -1` counts the number of files.
+Here `ls` lists files then `sort` sorts the list then `wc -l` counts the number of files.
 
 ### Give an example of a command that using piping twice, than sends the output to a file
 
@@ -978,4 +998,4 @@ Here `ls` lists files then `sort` sorts the list then `wc -1` counts the number 
 ls | sort | wc -l > filecount.txt
 ```
 
-Here `ls` lists files then `sort` sorts the list then `wc -1` counts the number of files then the result is saved in `filecount.txt`
+Here `ls` lists files then `sort` sorts the list then `wc -l` counts the number of files then the result is saved in `filecount.txt`
