@@ -26,7 +26,7 @@ sudo sed -i 's|try_files $uri $uri/ =404;|proxy_pass http://localhost:3000;|' /e
 sudo systemctl restart nginx
 ```
 
-## App Deployment
+## App Deployment (AWS)
 
 ### Stage 1
 
@@ -71,7 +71,7 @@ This VM that the image is being created from should have the app in the root dir
 
 Create a new instance from the created AMI, add a shortend Bash Script to the user data section containing code to cd into the repo and to start the app with pm2.
 
-## Database Deployment with the App
+## Database Deployment with the App (AWS)
 
 ### Stage 1 
 
@@ -101,3 +101,57 @@ Import the Bash Scripts into the respective VM's for the database and app. If da
 Create images from the respective VM's and create run only scripts for both the app and database to go into their user data sections. This should speed up the process as neither need to install anything anymore.
 
 Just remember to change the `IP Address` in the app script.
+
+## App Deployment (Azure)
+
+### Notes
+
+![alt text](images/cloud_notes.png)
+
+### Mistakes
+
+- When creating in Azure use the search bar at the top to find what you want to create (i.e. ssh key, vnet, vm)
+  - **DO NOT** use the create button, this causes region errors
+
+### Process
+
+#### SSH
+
+Ensure resource group is selected, this should automatically select the correct region, if not find another way to enter the creation screen.
+
+Add an appropriate name (tech601-jason-azure) and create. Don't forget to add tags.
+
+![alt text](images/ssh.png)
+
+#### VNet
+
+Select the resource group and add an appropriate name (tech601-jason-2-subnet-vnet).
+
+![alt text](images/vnet.png)
+
+Add a public (10.0.2.0/24) and private (10.0.3.0/24) subnet and ensure address range is 10.0.0.0/16.
+
+![alt text](images/vnet2.png)
+
+
+#### VM
+
+Select resource group, add appropriate name (tech601-jason-app-vm), set security type to `standard`, and image to `Ubuntu Pro 22.04 LTS - x64 Gen2`.
+
+![alt text](images/vm.png)
+
+Set the size to `Standard_B1s`, set username to `adminuser`, select your ssh key pair, and allow SSH and HTTP ports.
+
+![alt text](images/vm2.png)
+
+Change disk type from `premium ssd` to `standard ssd` to reduce unnecessary costs.
+
+![alt text](images/vm3.png)
+
+Select your vnet and the appropriate subnet (public for app, private for db), create a public ip if necessary.
+
+![alt text](images/vm4.png)
+
+From this point the VM's can be run simillarly to AWS either manually using commands, adding bash scripts, using user data, or using an image.
+
+One small difference to note, because of the use of subnets, the db connection string should contain the private subnet address (e.g. 10.0.3.4).

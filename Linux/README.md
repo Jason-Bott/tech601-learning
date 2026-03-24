@@ -177,6 +177,10 @@ Show current directory:
 
 > pwd
 
+SSH Connect:
+
+> ssh -i "tech601-jason-aws.pem" ubuntu@ec2-34-255-215-7.eu-west-1.compute.amazonaws.com
+
 ---
 
 ## Listing Files & Directories

@@ -31,6 +31,9 @@
     - [Using the virtual machine](#using-the-virtual-machine)
       - [Connecting](#connecting)
       - [Exiting](#exiting)
+  - [Monolith vs 2-tier Architecture](#monolith-vs-2-tier-architecture)
+    - [Monolith](#monolith)
+    - [2-tier Architecture](#2-tier-architecture)
 
 ---
 
@@ -202,3 +205,21 @@ Ready to use software delivered over the internet, like Microsoft 365. You only 
 2. Instance State -> Stop Instance
    1. Or Terminate if no longer needed
 
+## Monolith vs 2-tier Architecture
+
+### Monolith
+
+- Advantages:
+  - Simple
+  - Lightweight
+  - Easier to deploy
+- Disadvantages:
+  - Difficult to scale
+  - Have to update all at once - more risk of bringing everything down
+
+### 2-tier Architecture
+
+- Advantages:
+  - Solves most of the disadvantages of the monolith architecture
+- Disadvantages:
+  - In some ways, more complex

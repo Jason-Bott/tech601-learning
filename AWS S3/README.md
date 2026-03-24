@@ -1,4 +1,4 @@
-# S3 (Simple Storage )
+# S3 (Simple Storage Service)
 
 ## Commands
 

@@ -10,7 +10,13 @@ echo set environment variable for DB connection string...
 # MUST SET IF YOU WANT TO CONNECT APP TO DB
 # COMMENT OUT IF YOU DON'T WANT TO CONNECT TO DB
 # export DB_HOST=mongodb://<IP-ADDRESS>:27017/posts
-export DB_HOST=mongodb://172.31.62.203:27017/posts
+
+# For AWS use db vm ip:
+#export DB_HOST=mongodb://20.117.178.69:27017/posts
+
+# For Azure use private subnet ip
+export DB_HOST=mongodb://10.0.3.4/posts
+
 echo done
 echo
 
