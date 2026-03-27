@@ -1,4 +1,15 @@
 # AWS Monitoring, Alert Management, Autoscaling
+- [AWS Monitoring, Alert Management, Autoscaling](#aws-monitoring-alert-management-autoscaling)
+  - [Monitoring](#monitoring)
+    - [Load testing with Apache Bench](#load-testing-with-apache-bench)
+  - [Alarms](#alarms)
+    - [Creating the alarm](#creating-the-alarm)
+    - [Email Notifications](#email-notifications)
+  - [Auto Scaling](#auto-scaling)
+    - [Blockers](#blockers)
+    - [Auto Scaling Group Creation](#auto-scaling-group-creation)
+    - [ASG, Target Group, Load Balancer, and URL](#asg-target-group-load-balancer-and-url)
+    - [Auto Scaling Group Deletion](#auto-scaling-group-deletion)
 
 ## Monitoring 
 
@@ -45,3 +56,52 @@ Once the conditions are in place the `SNS (Simple Notification Service) Topic` n
 When the alarm is triggered an email notification is sent, this contains all the details including the alarm details, threshold, monitored metric, and state change actions.
 
 ![alt text](images/alarm.png)
+
+## Auto Scaling
+
+![alt text](images/sacling.png)
+
+![alt text](images/auto-scaling.png)
+
+### Blockers
+
+- Created load balancer internal facing instead of internet facing, this causes the link to not be accessable from the internet
+
+### Auto Scaling Group Creation
+
+- Name appropriately `tech601-jason-app-asg`
+- Select launch template
+  - Launch templates are created the same way as creating an instance from an image
+- Select availability zones
+  - More selected means more availability
+- Select availability zone distribution
+
+  ![alt text](images/azd.png)
+
+- Attach a new load balancer
+  - Name = `tech601-jason-app-asg-lb`
+  - Type = `Application` as this is HTTP
+  - Scheme = `Internet-facing` to allow access from the internet
+  - Under listeners and routing, create a new target group with the name `tech601-jason-app-asg-lb-tg`
+- In health checks, enable `elastic load balancing`
+
+  ![alt text](images/elb.png)
+
+- Set health check grace period to an appropriate length
+  - This should reflect how long your app takes to start up as we do not want to check before it is running.
+  - e.g. if the app opens in 60 seconds, 90 seconds would be a safe grace period
+- Group size is the number of instances you want running at once (`2`)
+- Scaling states the minimum and maximum desired capacity (`Min = 2` `Max = 3`)
+- Add a tag with the key `Name` to name new instances created by the Auto Scaling Group with the value entered.
+
+### ASG, Target Group, Load Balancer, and URL
+
+![alt text](images/load-balancer-url.gif)
+
+### Auto Scaling Group Deletion
+
+1. Delete the load balancer
+2. Delete the target group (if the load balancer is gone already it will say None associated in the Load balancer column)
+3. Delete the ASG
+
+![alt text](images/deleting-asg.gif)
