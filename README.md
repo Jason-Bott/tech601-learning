@@ -3,13 +3,11 @@
 ## DevOps Mindset
 
 - Efficient
-  - Automation
-- Stable/Standardised
-  - Scripting
-- Robustness
-  - Auto scaling, load balancing
+- Stable
+- Standardised
+- Robust
 
 ### FQG topic ideas
 
-- APIs with python
+- APIs
 - Bash scripting
