@@ -17,7 +17,15 @@
     - [Provider Block](#provider-block)
     - [Resource Block](#resource-block)
   - [Commands](#commands)
+  - [Variables](#variables)
+    - [Provider Block](#provider-block-1)
+    - [Resource Block](#resource-block-1)
   - [.gitignore for Terraform](#gitignore-for-terraform)
+  - [Creating Terraform scripts](#creating-terraform-scripts)
+    - [main.tf](#maintf)
+    - [variable.tf](#variabletf)
+    - [Two Tier Deployment](#two-tier-deployment)
+    - [GitHub repo creation](#github-repo-creation)
 
 ## Infrastructure as Code (IaC)
 
@@ -199,6 +207,38 @@ Remove everything stated in `main.tf`:
 
 > terraform destroy
 
+## Variables
+
+### Provider Block
+
+- region
+  - Type: string
+  - Purpose: States the region the instance is located
+
+### Resource Block
+
+- ami
+  - Type: string
+  - Purpose: Gives the id of an AMI to use to create the instance with
+- instance_type
+  - Type: string
+  - Purpose: Gives the name of the instance type to use (e.g. t3.micro)
+- associate_public_ip_address
+  - Type: bool
+  - Purpose: States if a public ip should be made
+- tags
+  - Type: map of string
+  - Purpose: Assigns tags with values (e.g. Name = instance_name)
+- vpc_security_group_ids
+  - Type: set of string
+  - Purpose: Gives the ids of security groups to use
+- key_name
+  - Type: string
+  - Purpose: Gives the name of the ssh key pair on AWS
+- user_data
+  - Type: string
+  - Purpose: Contains user data, can load a file or be inputed manually
+
 ## .gitignore for Terraform
 
 Template:
@@ -212,3 +252,37 @@ Important files to ignore:
   - These files will contain sensitive data so need to be kept hidden
 - variable.tf
   - Can hide information that other people don't need to see
+
+## Creating Terraform scripts
+
+- For each task/folder there are two files that are created:
+  - `main.tf`
+  - `variable.tf`
+
+### main.tf
+
+The `main.tf` file contains the provider and resource blocks, this is where the cloud provider that will be used is stated (AWS in this case) as well as the instances to be created. Each block can take in as much or as little information (as long as the necessary is included) as you want.
+
+### variable.tf
+
+The `variable.tf` file contains all the variables to be used in the `main.tf` file. These files can be added to the `.gitignore` so that all information like AMI IDs, SG IDs or SSH key pairs are not pushed to GitHub. The `main.tf` file can then reference these variables for use by Terraform
+
+### Two Tier Deployment
+
+When deploying an app with a database the app needs the databases private IP to connect to it. Because of this the app should be created second. Terraform can detect refrences from one creation of an instance and creates an implicit dependency. So if the app requires the databases Ip as a variable, Terraform will create the db first, wait for a private Ip and then inject this value into the app before creating the app.
+
+Terraform has a strict evaluation order however, this is:
+
+1. Input variables (your variables.tf)
+2. Locals
+3. Resources (like aws_instance)
+4. Outputs
+
+Because of this, the app's user data cannot contain the reference to the databases private Ip in the `variable.tf` file. To work around this a new file can be created containing the user data and a reference to an external variable (the private Ip). In the `main.tf` file this user data can be read using `templatefile()`. This function reads the file at the given path and renders its content as a template, variables (like the private Ip) can then be inserted into this template to create a user data script that now contains everything we had before, and also the private Ip.
+
+### GitHub repo creation
+
+A personal access token will need to be created. **MAKE SURE THIS IS NOT PUSHED TO GITHUB.** The token will required the following permissions when being created:
+
+- repo
+- delete_repo
