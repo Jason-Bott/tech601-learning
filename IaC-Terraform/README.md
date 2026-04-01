@@ -3,7 +3,7 @@
 - [IaC \& Terraform](#iac--terraform)
   - [Infrastructure as Code (IaC)](#infrastructure-as-code-iac)
     - [Two main types of IaC](#two-main-types-of-iac)
-      - [Declaritive IaC (Desired State)](#declaritive-iac-desired-state)
+      - [Declarative IaC (Desired State)](#declarative-iac-desired-state)
       - [Imperative IaC (Procedural)](#imperative-iac-procedural)
       - [Key Differences](#key-differences)
     - [Two main types of IaC (again)](#two-main-types-of-iac-again)
@@ -20,6 +20,10 @@
   - [Variables](#variables)
     - [Provider Block](#provider-block-1)
     - [Resource Block](#resource-block-1)
+      - [General](#general)
+      - [EC2 Instance](#ec2-instance)
+      - [VPC](#vpc)
+    - [Variable Block](#variable-block)
   - [.gitignore for Terraform](#gitignore-for-terraform)
   - [Creating Terraform scripts](#creating-terraform-scripts)
     - [main.tf](#maintf)
@@ -35,7 +39,7 @@ Instead of clicking around in a console, you write files that define what resour
 
 ### Two main types of IaC
 
-#### Declaritive IaC (Desired State)
+#### Declarative IaC (Desired State)
 
 You define what you want but not how to get there. You describe the end stat, the tool figures out the steps.
 
@@ -195,9 +199,13 @@ Format tf files:
 
 > terraform fmt
 
-Check changes in `main.tf`:
+Check changes to be made when applying from `main.tf`:
 
 > terraform plan
+
+Terraform plan using variables from a `.tfvars` file:
+
+> terraform plan -var-file="app-instance.tfvars"
 
 Create everything in `main.tf`:
 
@@ -217,6 +225,14 @@ Remove everything stated in `main.tf`:
 
 ### Resource Block
 
+#### General 
+
+- tags
+  - Type: map of string
+  - Purpose: Assigns tags with values (e.g. Name = instance_name)
+
+#### EC2 Instance
+
 - ami
   - Type: string
   - Purpose: Gives the id of an AMI to use to create the instance with
@@ -226,9 +242,6 @@ Remove everything stated in `main.tf`:
 - associate_public_ip_address
   - Type: bool
   - Purpose: States if a public ip should be made
-- tags
-  - Type: map of string
-  - Purpose: Assigns tags with values (e.g. Name = instance_name)
 - vpc_security_group_ids
   - Type: set of string
   - Purpose: Gives the ids of security groups to use
@@ -238,6 +251,27 @@ Remove everything stated in `main.tf`:
 - user_data
   - Type: string
   - Purpose: Contains user data, can load a file or be inputed manually
+
+#### VPC
+
+- vpc_id
+  - Type: string
+  - Purpose: Assigns the resource to the vpc by id
+- cidr_block
+  - Type: string
+  - Purpose: For setting CIDR blocks (e.g. `10.0.2.0/24` for public subnet)
+- availability_zone
+  - Type: string
+  - Purpose: for selecting the availability zone to be used
+
+### Variable Block
+
+- deafult
+  - Type: any
+  - Purpose: Assigns a default value for the variable created
+- sensitive
+  - Type: bool
+  - Purpose: Hides the variable contents in any UI if it is sensitive
 
 ## .gitignore for Terraform
 
