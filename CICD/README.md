@@ -102,3 +102,18 @@ Examples:
 - Improved product quality
 - Better collaboration between teams
 - Enables DevOps culture
+
+## CICD Diagram
+
+![alt text](images/diagram.png)
+
+## SDLC
+
+1. Plan – Requirements gathering
+2. Design – Architecture & UI design
+3. Develop – Coding
+4. Test – QA validation
+5. Deploy – Release to production
+6. Maintain – Fix bugs, updates
+
+CI/CD automates Develop -> Test -> Deploy
