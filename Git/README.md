@@ -1,5 +1,19 @@
 # Git & GitHub
 
+## Commands
+
+View branches:
+
+> git branch
+
+New branch:
+
+> git branch dev
+
+Switch branch:
+
+> git switch dev
+
 ## What to do if something sensitive is accidently pushed
 
 ### Important Notes
