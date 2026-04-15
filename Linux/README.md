@@ -11,6 +11,7 @@
 - [Mistakes Made](#mistakes-made)
 - [Commands](#commands)
   - [Getting Help](#getting-help)
+  - [Basic Commands](#basic-commands)
   - [Navigation (Directories)](#navigation-directories)
   - [Listing Files \& Directories](#listing-files--directories)
   - [File Viewing \& Searching](#file-viewing--searching)
@@ -19,6 +20,8 @@
   - [Text Editing](#text-editing)
   - [System Information](#system-information)
   - [Process Management](#process-management)
+  - [User Management](#user-management)
+  - [System Management](#system-management)
   - [Environment Variables](#environment-variables)
   - [Command History](#command-history)
   - [Networking \& Downloads](#networking--downloads)
@@ -164,6 +167,39 @@ Help for a command:
 
 ---
 
+## Basic Commands
+
+Show date:
+
+> date
+
+Show current calendar month:
+
+> cal
+
+Show current uptime:
+
+> uptime
+
+Show who you are logged in as:
+
+> whoami
+
+
+Display user information:
+
+> finger
+
+Show manual of command:
+
+> man command
+
+Display who is online:
+
+> who / w
+
+---
+
 ## Navigation (Directories)
 
 Change directory:
@@ -260,6 +296,18 @@ Create empty file:
 
 > touch
 
+Create compressed file:
+
+> gzip
+
+Unzip file:
+
+> gunzip
+
+Extract tar file:
+
+> tar
+
 ---
 
 ## File Permissions
@@ -347,7 +395,61 @@ Manage background jobs:
 > jobs  
 > jobs -l
 
+Run program in foreground:
+
+> fg
+
+Run service in the back group:
+
+> bg
+
 ---
+
+## User Management
+
+Add user: 
+
+> useradd `option` `username`
+
+Useradd options:
+
+* -u = user id
+* -g = primary group id
+* -G = seconday group id
+* -d = home directory
+* -c = comment
+* -s = shell
+
+---
+
+## System Management
+
+Free memory:
+
+> free
+
+Display memory information:
+
+> /proc/meminfo
+
+Display CPU information:
+
+> /proc/cpuinfo
+
+Show directory space usage:
+
+> du
+
+Show possible locations of app:
+
+> whereis
+
+Show which app will be run by default:
+
+> which
+
+---
+
 
 ## Environment Variables
 
@@ -390,6 +492,18 @@ Clear command history:
 ---
 
 ## Networking & Downloads
+
+Lists host name of the server:
+
+> hostname
+
+Availability of destination server over the network:
+
+> Ping `ip`
+
+Lists IP addresses of the server:
+
+> ifconfig
 
 Download with curl:
 
