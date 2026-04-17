@@ -25,6 +25,26 @@
   - [Logging into Docker Hub](#logging-into-docker-hub)
   - [BuildKit (Advanced Builds)](#buildkit-advanced-builds)
   - [Cleaning Up Build Cache](#cleaning-up-build-cache)
+- [Defining Images (Dockerfile)](#defining-images-dockerfile)
+  - [Basic Instructions](#basic-instructions)
+  - [Running Commands](#running-commands)
+  - [Container Startup Commands](#container-startup-commands)
+  - [Environment Configuration](#environment-configuration)
+  - [Ports \& Networking](#ports--networking)
+  - [Volumes](#volumes)
+  - [User \& Permissions](#user--permissions)
+  - [Metadata](#metadata)
+  - [Example Dockerfile](#example-dockerfile)
+- [Running Multi-Container Apps (Docker Compose)](#running-multi-container-apps-docker-compose)
+  - [Getting Help](#getting-help-2)
+  - [Starting \& Stopping](#starting--stopping)
+  - [Building Services](#building-services)
+  - [Viewing Containers](#viewing-containers)
+  - [Executing Commands](#executing-commands)
+  - [Scaling Services](#scaling-services)
+  - [Restarting Services](#restarting-services)
+  - [Configuration Validation](#configuration-validation)
+  - [Example docker-compose.yml](#example-docker-composeyml)
 
 # Commands - Manipulating Containers
 
@@ -309,3 +329,218 @@ Remove all build cache without prompt:
 
 ---
 
+# Defining Images (Dockerfile)
+
+## Basic Instructions
+
+Specify base image:
+
+> FROM node:18  
+
+Set working directory:
+
+> WORKDIR /app  
+
+Copy files into image:
+
+> COPY . .  
+
+Add files (auto extract supported):
+
+> ADD app.tar.gz /app  
+
+---
+
+## Running Commands
+
+Run command during build:
+
+> RUN npm install  
+
+Run multiple commands:
+
+> RUN apt-get update && apt-get install -y curl  
+
+---
+
+## Container Startup Commands
+
+Set default command:
+
+> CMD ["npm", "start"]  
+
+Set entrypoint:
+
+> ENTRYPOINT ["node", "app.js"]  
+
+---
+
+## Environment Configuration
+
+Set environment variable:
+
+> ENV NODE_ENV=production  
+
+Pass build argument:
+
+> ARG PORT=3000  
+
+---
+
+## Ports & Networking
+
+Expose a port:
+
+> EXPOSE 3000  
+
+---
+
+## Volumes
+
+Create a mount point:
+
+> VOLUME ["/data"]  
+
+---
+
+## User & Permissions
+
+Set user:
+
+> USER node  
+
+---
+
+## Metadata
+
+Add labels:
+
+> LABEL version="1.0"  
+
+---
+
+## Example Dockerfile
+
+Example Node.js Dockerfile:
+
+> FROM node:18  
+> WORKDIR /app  
+> COPY package*.json ./  
+> RUN npm install  
+> COPY . .  
+> CMD ["npm", "start"]  
+
+---
+
+# Running Multi-Container Apps (Docker Compose)
+
+## Getting Help
+
+Help for a command:
+
+> docker compose --help  
+
+---
+
+## Starting & Stopping
+
+Start services:
+
+> docker compose up  
+
+Start in detached mode:
+
+> docker compose up -d  
+
+Stop services:
+
+> docker compose down  
+
+Stop and remove volumes:
+
+> docker compose down -v  
+
+---
+
+## Building Services
+
+Build services:
+
+> docker compose build  
+
+Build without cache:
+
+> docker compose build --no-cache  
+
+---
+
+## Viewing Containers
+
+List running services:
+
+> docker compose ps  
+
+View logs:
+
+> docker compose logs  
+
+Follow logs:
+
+> docker compose logs -f  
+
+---
+
+## Executing Commands
+
+Run command in service:
+
+> docker compose exec web bash  
+
+Run one-off command:
+
+> docker compose run web npm install  
+
+---
+
+## Scaling Services
+
+Scale a service:
+
+> docker compose up --scale web=3  
+
+---
+
+## Restarting Services
+
+Restart all services:
+
+> docker compose restart  
+
+Restart specific service:
+
+> docker compose restart web  
+
+---
+
+## Configuration Validation
+
+Validate compose file:
+
+> docker compose config  
+
+---
+
+## Example docker-compose.yml
+
+Basic example:
+
+> version: "3"  
+> services:  
+>   web:  
+>     build: .  
+>     ports:  
+>       - "3000:3000"  
+>   redis:  
+>     image: redis  
+
+---
